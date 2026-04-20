@@ -11,6 +11,11 @@ inputs:
     description: "Snitch license key from snitchplugin.com/dashboard/keys"
     required: true
 
+  github-token:
+    description: "GitHub token used to post PR comments, commit statuses, and SARIF. Defaults to the workflow's built-in token."
+    required: false
+    default: ${{ github.token }}
+
   openrouter-api-key:
     description: "OpenRouter API key. One of (openrouter|anthropic|openai|google|copilot)-* keys is required."
     required: false

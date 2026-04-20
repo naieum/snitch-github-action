@@ -65895,9 +65895,12 @@ const METHODOLOGY_VERSION = process.env.SNITCH_METHODOLOGY_VERSION ?? "v7.1.0";
 async function main() {
     const start = Date.now();
     const licenseKey = core.getInput("snitch-license-key", { required: true });
-    const githubToken = process.env.GITHUB_TOKEN;
+    // github-token defaults to ${{ github.token }} in action.yml, so customers
+    // never need to remember to forward it. Fall back to GITHUB_TOKEN env for
+    // backwards compat with older pinned workflows.
+    const githubToken = core.getInput("github-token") || process.env.GITHUB_TOKEN || "";
     if (!githubToken) {
-        core.setFailed("GITHUB_TOKEN missing. Add `permissions: { pull-requests: write, contents: read, security-events: write }` to your workflow.");
+        core.setFailed("GITHUB_TOKEN missing. This usually means the workflow is running in an unexpected context. Expected github-token input or GITHUB_TOKEN env.");
         return;
     }
     const keys = {
@@ -66051,8 +66054,15 @@ async function main() {
         model: adapterModel,
         durationMs,
     });
-    // Check status.
-    await setCheckStatus(githubToken, findings, failOn);
+    // Check status. Non-fatal: if the workflow didn't grant `statuses: write`
+    // (older GitHub default), we still want the PR comment and telemetry to
+    // land. Log a warning with remediation guidance.
+    try {
+        await setCheckStatus(githubToken, findings, failOn);
+    }
+    catch (err) {
+        core.warning(`Commit status not posted: ${err instanceof Error ? err.message : String(err)}. Add \`statuses: write\` to your workflow permissions block to enable it.`);
+    }
     // Telemetry (metadata only, never source code).
     try {
         await completeScanEvent(licenseKey, entitlement.scanId, {
