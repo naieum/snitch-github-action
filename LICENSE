@@ -1,0 +1,49 @@
+Snitch for GitHub Action — Proprietary License
+
+Copyright (c) 2026 Snitch. All rights reserved.
+
+This software ("the Action") is proprietary to Snitch. By installing, configuring,
+or running the Action in your repository's GitHub Actions workflows, you agree to
+the terms below and to the Snitch Terms of Service at https://snitchplugin.com/terms
+and the Snitch AI Disclaimer at https://snitchplugin.com/ai-disclaimer.
+
+1. License grant.
+   Subject to your continuing compliance with these terms and the Snitch Terms of
+   Service, Snitch grants you a limited, non-exclusive, non-transferable,
+   non-sublicensable, revocable license to use the Action on repositories you own
+   or are authorized to audit, in exchange for a valid active Snitch license key
+   issued at snitchplugin.com/dashboard/keys.
+
+2. Restrictions.
+   You may not:
+   (a) redistribute, resell, sublicense, host, or make the Action available to any
+       third party independently of Snitch;
+   (b) reverse engineer, decompile, or attempt to extract the source, prompts,
+       methodology, or proprietary logic from the bundled `dist/` output, except
+       to the extent such restriction is prohibited by applicable law;
+   (c) remove, alter, or obscure any copyright, trademark, license, fingerprint,
+       or attribution notice;
+   (d) use the Action on code you do not own or are not authorized to audit;
+   (e) bypass or disable the license-key or quota enforcement mechanisms;
+   (f) use the Action to develop a competing security-review product.
+
+3. Reservation of rights.
+   All rights not expressly granted are reserved by Snitch. No implied license is
+   granted by estoppel, implication, or otherwise.
+
+4. Third-party software.
+   The Action's `dist/` bundle includes open-source components listed in
+   `dist/licenses.txt`. Those components remain governed by their own licenses.
+
+5. No warranty; limitation of liability.
+   The Action is provided "as is" without warranty of any kind. Snitch is not
+   liable for any loss, damage, security incident, regulatory outcome, or audit
+   result arising from the use of the Action or any finding it produces. See the
+   Snitch Terms of Service and AI Disclaimer for the complete disclaimer.
+
+6. Termination.
+   This license terminates automatically if you breach these terms or if your
+   Snitch license key is revoked. On termination, stop using the Action and
+   remove it from your repositories.
+
+Questions: legal@snitchplugin.com

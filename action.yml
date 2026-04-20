@@ -1,0 +1,69 @@
+name: "Snitch for GitHub"
+description: "License-gated security audit on every pull request. Customer code never leaves your runner."
+author: "Snitch (snitchplugin.com)"
+
+branding:
+  icon: "shield"
+  color: "red"
+
+inputs:
+  snitch-license-key:
+    description: "Snitch license key from snitchplugin.com/dashboard/keys"
+    required: true
+
+  openrouter-api-key:
+    description: "OpenRouter API key. One of (openrouter|anthropic|openai|google|copilot)-* keys is required."
+    required: false
+  anthropic-api-key:
+    description: "Anthropic API key."
+    required: false
+  openai-api-key:
+    description: "OpenAI API key."
+    required: false
+  google-api-key:
+    description: "Google AI Studio API key (Gemini)."
+    required: false
+  copilot-token:
+    description: "GitHub Copilot OAuth token (requires active Copilot subscription)."
+    required: false
+
+  trigger-mode:
+    description: "When to run: smart | always | manual. Default smart. Can be overridden by .snitch.yml."
+    required: false
+    default: "smart"
+  provider:
+    description: "Force a specific provider. If unset, auto-selected from which keys are present."
+    required: false
+  model:
+    description: "Provider-relative model id. Falls back to provider default when unset."
+    required: false
+  fail-on:
+    description: "Fail the check if findings at this severity or above are present: critical | high | medium | low | none."
+    required: false
+    default: "high"
+  categories:
+    description: "Comma-separated category numbers (e.g. '1,2,5'). Omit to auto-detect from changed file extensions."
+    required: false
+  paths:
+    description: "Comma-separated glob filters. Files matching these globs are scanned; others are skipped."
+    required: false
+
+outputs:
+  findings-count:
+    description: "Total number of findings produced by this scan."
+  critical-count:
+    description: "Number of critical-severity findings."
+  high-count:
+    description: "Number of high-severity findings."
+  report-url:
+    description: "URL of the PR comment containing the report."
+  scan-id:
+    description: "Snitch scan id (for dashboard correlation)."
+  provider-used:
+    description: "Which provider was selected for this scan."
+  model-used:
+    description: "Which model was selected for this scan."
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
